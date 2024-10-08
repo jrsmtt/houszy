@@ -67,3 +67,61 @@ scaler = StandardScaler()
 df[numerical_cols] = scaler.fit_transform(df[numerical_cols])
 
 # Now your data is preprocessed and ready for modeling.
+
+
+
+
+
+
+    import pandas as pd
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+import category_encoders as ce
+
+# Exclude columns that should not be preprocessed
+exclude_cols = ['cust_no', 'HH_NO', 'resp_tag']  # Add other unique identifier columns as needed
+
+# Split the columns into categorical and numerical
+categorical_cols = df.select_dtypes(include=['object', 'category']).columns.difference(exclude_cols)
+numerical_cols = df.select_dtypes(include=['float64', 'int64']).columns.difference(exclude_cols)
+
+# Step 1: Handling Missing Values
+# Handle missing values for numerical and categorical columns separately
+
+# 1.1 Numerical Features
+# If skewed, use median; otherwise, use mean
+def get_imputation_strategy(column):
+    if df[column].skew() > 1 or df[column].skew() < -1:
+        return 'median'
+    else:
+        return 'mean'
+
+# Apply imputation dynamically for each numerical column
+for col in numerical_cols:
+    strategy = get_imputation_strategy(col)
+    imputer = SimpleImputer(strategy=strategy)
+    df[col] = imputer.fit_transform(df[[col]])
+
+# 1.2 Categorical Features
+# Use mode (most frequent) to fill missing values in categorical columns
+mode_imputer = SimpleImputer(strategy='most_frequent')
+df[categorical_cols] = mode_imputer.fit_transform(df[categorical_cols])
+
+# Step 2: Encoding Categorical Features
+# Label Encoding for low-cardinality columns, Target Encoding for high-cardinality
+
+for col in categorical_cols:
+    if df[col].nunique() > 50:  # High cardinality
+        target_encoder = ce.TargetEncoder(cols=[col])
+        df[col] = target_encoder.fit_transform(df[col], df['resp_tag'])
+    else:
+        label_encoder = LabelEncoder()
+        df[col] = label_encoder.fit_transform(df[col])
+
+# Step 3: Scaling Numerical Features
+# Standardize the numerical features
+scaler = StandardScaler()
+df[numerical_cols] = scaler.fit_transform(df[numerical_cols])
+
+# Now the dataset is preprocessed, excluding 'cust_no', 'HH_NO', and 'resp_tag'
+
