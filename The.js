@@ -27,3 +27,17 @@ outliers = transformed_data_flat[(transformed_data_flat < lower_bound) | (transf
 
 print("Number of outliers:", len(outliers))
 print("Outliers:", outliers)
+
+
+
+
+from scipy.stats import zscore
+
+# Calculate the z-scores
+z_scores = zscore(transformed_data_flat)
+
+# Find outliers
+outliers_z = transformed_data_flat[np.abs(z_scores) > 3]
+
+print("Number of outliers using Z-Score:", len(outliers_z))
+print("Outliers:", outliers_z)
