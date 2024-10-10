@@ -1,0 +1,8 @@
+plt.figure(figsize=(10, 6))
+pd.Series(transformed_data_flat).plot(kind='density', label='Density')
+plt.hist(transformed_data_flat, bins=30, density=True, alpha=0.5, color='gray', label='Histogram')
+plt.title('Density and Histogram of Yeo-Johnson Transformed Data')
+plt.xlabel('Transformed Value')
+plt.ylabel('Density')
+plt.legend()
+plt.show()
