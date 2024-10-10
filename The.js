@@ -41,3 +41,22 @@ outliers_z = transformed_data_flat[np.abs(z_scores) > 3]
 
 print("Number of outliers using Z-Score:", len(outliers_z))
 print("Outliers:", outliers_z)
+
+
+
+
+
+import matplotlib.pyplot as plt
+
+# Assuming 'intersection_outliers' contains the common outliers
+plt.figure(figsize=(10, 6))
+plt.scatter(range(len(transformed_data_flat)), transformed_data_flat, label='Data', alpha=0.5)
+plt.scatter([i for i, val in enumerate(transformed_data_flat) if val in intersection_outliers], 
+            [val for val in transformed_data_flat if val in intersection_outliers], 
+            color='red', label='Common Outliers')
+
+plt.title('Scatter Plot of Data with Common Outliers Highlighted')
+plt.xlabel('Index')
+plt.ylabel('Transformed Value')
+plt.legend()
+plt.show()
