@@ -120,3 +120,30 @@ df_vhh['hh_tenure_mths_scaled'] = scaler.fit_transform(df_vhh[['hh_tenure_mths_c
 
 # Check the updated DataFrame
 df_vhh.head()
+
+
+
+
+
+def convert_yes_no_to_binary(columns):
+    """
+    Converts 'yes'/'no' values to 1/0 in the specified columns of the DataFrame df_vhh.
+    
+    Parameters:
+    - columns: List of column names to convert
+    
+    Returns:
+    - Modifies the DataFrame df_vhh in-place
+    """
+    global df_vhh
+    
+    for col in columns:
+        # Map 'yes' to 1 and 'no' to 0
+        df_vhh[col + '_binary'] = df_vhh[col].map({'yes': 1, 'no': 0})
+
+# Example usage:
+cbol_columns = ['cbol_ind_1', 'cbol_ind_2', 'cbol_ind_3', 'cbol_ind_6', 'cbol_ind_12']
+convert_yes_no_to_binary(cbol_columns)
+
+# Check the results
+df_vhh.head()
