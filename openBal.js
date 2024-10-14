@@ -166,3 +166,43 @@ df_vhh['cbol_2mo_cnt_capped'] = df_vhh['cbol_2mo_cnt'].clip(upper=cap_value)
 # Scaling the capped count (optional for models sensitive to scaling)
 scaler = StandardScaler()
 df_vhh['cbol_2mo_cnt_scaled'] = scaler.fit_transform(df_vhh[['cbol_2mo_cnt_capped']])
+
+
+
+
+from sklearn.preprocessing import LabelEncoder
+
+def handle_nominal_data_with_label_encoding(columns, fill_method='missing'):
+    """
+    Handles nominal categorical data by filling NaN values and applying Label Encoding
+    directly to the global DataFrame (df_vhh).
+
+    Parameters:
+    - columns: List of nominal columns to process
+    - fill_method: How to handle NaN values:
+        - 'missing': Fill NaN values with a placeholder 'Missing'
+        - 'mode': Fill NaN values with the most frequent value (mode)
+    
+    Returns:
+    - None: Modifies the global DataFrame (df_vhh) in place
+    """
+    global df_vhh  # Refers to the global DataFrame
+
+    # Step 1: Handle NaN values
+    for col in columns:
+        if fill_method == 'missing':
+            # Fill NaN values with 'Missing'
+            df_vhh[col] = df_vhh[col].fillna('Missing')
+        elif fill_method == 'mode':
+            # Fill NaN with the most frequent value (mode)
+            mode_value = df_vhh[col].mode()[0]
+            df_vhh[col] = df_vhh[col].fillna(mode_value)
+        
+        # Step 2: Apply Label Encoding
+        le = LabelEncoder()
+        df_vhh[col + '_encoded'] = le.fit_transform(df_vhh[col])
+
+        # Optional: Print label mapping for reference
+        print(f"Label mapping for {col}:")
+        print(dict(zip(le.classes_, le.transform(le.classes_))))
+
