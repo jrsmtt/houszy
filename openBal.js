@@ -102,3 +102,21 @@ def preprocess_open_account_columns(columns):
         df_vhh[col + '_scaled'] = scaler.fit_transform(df_vhh[[col + '_capped']])
 
 
+
+
+
+# 1. Cap outliers at the 99th percentile
+cap_value = df_vhh['hh_tenure_mths'].quantile(0.99)
+df_vhh['hh_tenure_mths_capped'] = df_vhh['hh_tenure_mths'].clip(upper=cap_value)
+
+# 2. Create tenure buckets
+df_vhh['tenure_category'] = pd.cut(df_vhh['hh_tenure_mths'], 
+                                   bins=[0, 12, 60, np.inf], 
+                                   labels=['Short', 'Medium', 'Long'])
+
+# 3. Scale the capped tenure values (optional for scaling-sensitive models)
+scaler = StandardScaler()
+df_vhh['hh_tenure_mths_scaled'] = scaler.fit_transform(df_vhh[['hh_tenure_mths_capped']])
+
+# Check the updated DataFrame
+df_vhh.head()
