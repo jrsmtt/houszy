@@ -147,3 +147,22 @@ convert_yes_no_to_binary(cbol_columns)
 
 # Check the results
 df_vhh.head()
+
+
+
+
+# Impute missing values in cbol_2mo_cnt with the median
+df_vhh['cbol_2mo_cnt'] = df_vhh['cbol_2mo_cnt'].fillna(df_vhh['cbol_2mo_cnt'].median())
+
+# Optionally, create a flag for missing cbol_2mo_cnt before imputing
+df_vhh['cbol_2mo_cnt_missing'] = df_vhh['cbol_2mo_cnt'].isna().astype(int)
+
+
+
+# Capping outliers for cbol_2mo_cnt at the 99th percentile
+cap_value = df_vhh['cbol_2mo_cnt'].quantile(0.99)
+df_vhh['cbol_2mo_cnt_capped'] = df_vhh['cbol_2mo_cnt'].clip(upper=cap_value)
+
+# Scaling the capped count (optional for models sensitive to scaling)
+scaler = StandardScaler()
+df_vhh['cbol_2mo_cnt_scaled'] = scaler.fit_transform(df_vhh[['cbol_2mo_cnt_capped']])
