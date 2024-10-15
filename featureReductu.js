@@ -30,3 +30,33 @@ to_drop = [column for column in upper.columns if any(upper[column] > threshold)]
 df_fof_reduced = df_fof.drop(columns=to_drop)
 
 print(f"Removed {len(to_drop)} highly correlated features")
+
+
+
+
+
+
+from sklearn.linear_model import LassoCV
+
+# Fit LassoCV for automatic feature selection
+lasso = LassoCV(cv=5)
+lasso.fit(X_train, y_train)
+
+# Get the mask of selected features (non-zero coefficients)
+selected_features = X_train.columns[(lasso.coef_ != 0)]
+
+# Reduce dataset to selected features
+X_train_lasso_reduced = X_train[selected_features]
+X_test_lasso_reduced = X_test[selected_features]
+
+print(f"Reduced to {len(selected_features)} features after Lasso selection")
+
+
+
+
+
+
+
+
+
+
