@@ -55,6 +55,35 @@ print(f"Reduced to {len(selected_features)} features after Lasso selection")
 
 
 
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+# Assuming 'target' is the label column
+X = df_fof_reduced.drop('target', axis=1)
+y = df_fof_reduced['target']
+
+# Split the data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Fit RandomForest to get feature importance
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+rf.fit(X_train, y_train)
+
+# Get feature importance scores
+importances = rf.feature_importances_
+
+# Sort the feature importance scores in descending order
+indices = np.argsort(importances)[::-1]
+
+# Keep top N important features
+N = 100  # Number of top features you want to keep
+important_features = X_train.columns[indices[:N]]
+
+# Reduce dataset to these top N features
+X_train_reduced = X_train[important_features]
+X_test_reduced = X_test[important_features]
+
+print(f"Reduced to {N} most important features")
 
 
 
