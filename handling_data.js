@@ -92,7 +92,7 @@ DATA for Convo BI : Collaborated with Asmanjas on preparing CRS data for Convo B
 Taking to New people who are working on same niche: Mostly Tech people ,how they work on POC’s do they get a cloud to host the POC’s to they do it on system, specially Gen AI , how they are building the products like, they hve open source hugging face models or call the   
 
 
-
+//To explore new technologies, I actively engaged with various colleagues to understand their work and the technologies used in their respective domains. These discussions helped me assess how these innovations could benefit my team's development processes and contribute to overall project efficiency
 
     import pandas as pd
 from sklearn.impute import SimpleImputer
