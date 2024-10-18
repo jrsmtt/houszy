@@ -79,6 +79,13 @@ df[numerical_cols] = scaler.fit_transform(df[numerical_cols])
 
 
 
+    //////////
+    CRS Report Management: Up until August, I was responsible for managing 11 (CRS) reports. During this time, I developed a solid understanding of the reporting processes, including technologies such as SAS code, process management, and execution. I became proficient enough to provide knowledge transfer (KT) to Abhijit.
+Code Version Control : My team and I encountered significant challenges with code management, resulting in delays and conflicts during code merging and new feature development. I took the initiative to conduct extensive research into alternative solutions available within the organization and tested several options. Ultimately, I implemented a solution using Git and OneDrive, which is currently undergoing testing to ensure it effectively resolves our code management issues. By leveraging open-source tools, we were able to achieve this solution without incurring additional costs, saving resources for the organization while enhancing our development process.
+API Testing:  With the development of V2, which introduced a client-server architecture, new features (KEYS) were implemented in the backend, requiring thorough testing. Initially, testing was conducted primarily through the frontend and Python packages, but as the complexity increased, a dedicated API testing tool became necessary. After researching available tools within the organization and encountering limitations with CMPs, I explored several open-source alternatives. I selected ThunderClient after conducting thorough research and testing, as it integrates seamlessly as a Visual Studio Code extension and was the best fit for our workflow. Unlike other tools, which we couldn't install on our system, ThunderClient offered a cost-effective, open-source solution, saving the organization resources while simplifying the process of testing new API keys. It has effectively resolved issues with key names and structures, addressing the challenges we faced..
+
+DATA for Convo BI : Collaborated with Asmanjas on preparing CRS data for Convo BI. The tasks involved end-to-end data handling, starting with data extraction using SAS, followed by transferring the dataset to the edge node. Additionally, I optimized the process by compressing the data into ZIP files and segmenting it into manageable chunks for efficient processing and transfer. 
+
 
 
 
