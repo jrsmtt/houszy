@@ -86,6 +86,10 @@ API Testing:  With the development of V2, which introduced a client-server archi
 
 DATA for Convo BI : Collaborated with Asmanjas on preparing CRS data for Convo BI. The tasks involved end-to-end data handling, starting with data extraction using SAS, followed by transferring the dataset to the edge node. Additionally, I optimized the process by compressing the data into ZIP files and segmenting it into manageable chunks for efficient processing and transfer. 
 
+///////
+    Extra Activity : volunteered in the event organised on the floor for USBP, and participated in Modelling hackathon.
+
+Taking to New people who are working on same niche: Mostly Tech people ,how they work on POC’s do they get a cloud to host the POC’s to they do it on system, specially Gen AI , how they are building the products like, they hve open source hugging face models or call the   
 
 
 
